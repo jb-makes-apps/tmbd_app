@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: tmdb_app
+
+server:
+  port: 8080
+
+tmdb:
+  base-url: https://api.themoviedb.org/3
+  api-key: ${TMDB_API_KEY}
+  connect-timeout-ms: 3000
+  read-timeout-ms: 5000
