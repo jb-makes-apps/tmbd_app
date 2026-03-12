@@ -2,6 +2,10 @@ spring:
   application:
     name: tmdb_app
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
 server:
   port: 8080
 
