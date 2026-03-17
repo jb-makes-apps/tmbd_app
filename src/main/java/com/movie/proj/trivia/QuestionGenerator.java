@@ -18,7 +18,7 @@ public class QuestionGenerator {
         this.movieService = movieService;
     }
 
-    public TriviaQuestion generate(){
+    public GeneratedQuestion generate(){
         ArrayList<String> titles= new ArrayList<String>();
 
         TmdbMovieResult tmdbMovieResult =  movieService.getRandomMovie();
@@ -29,7 +29,7 @@ public class QuestionGenerator {
         Collections.shuffle(titles);
         String redacted = tmdbMovieResult.getOverview().replace(tmdbMovieResult.getTitle(), "---------");
 
-
-        return new TriviaQuestion(UUID.randomUUID().toString(), redacted, titles);
+        return new GeneratedQuestion(new TriviaQuestion(UUID.randomUUID().toString(), redacted, titles), tmdbMovieResult.getTitle());
     }
+
 }

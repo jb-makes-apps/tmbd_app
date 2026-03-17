@@ -16,7 +16,7 @@ public class TriviaController {
 
 
     @GetMapping("/getQuestion")
-        public TriviaQuestion generateQuestion() {
+        public GeneratedQuestion generateQuestion() {
         return questionGenerator.generate();
     }
 }
