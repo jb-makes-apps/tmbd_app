@@ -4,11 +4,13 @@ import com.movie.proj.domain.MovieService;
 import com.movie.proj.tmdb.TmdbMovieResult;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.UUID;
+
 
 @Component
 public class QuestionGenerator {
-    private List<String> titles;
 
     private final MovieService movieService;
 
@@ -16,12 +18,18 @@ public class QuestionGenerator {
         this.movieService = movieService;
     }
 
-    public List<String> generate(){
+    public TriviaQuestion generate(){
+        ArrayList<String> titles= new ArrayList<String>();
 
         TmdbMovieResult tmdbMovieResult =  movieService.getRandomMovie();
         for(int i = 0; i < 3; i++){
             titles.add(movieService.getRandomMovie().getTitle());
         }
-        return titles;
+        titles.add(tmdbMovieResult.getTitle());
+        Collections.shuffle(titles);
+        String redacted = tmdbMovieResult.getOverview().replace(tmdbMovieResult.getTitle(), "---------");
+
+
+        return new TriviaQuestion(UUID.randomUUID().toString(), redacted, titles);
     }
 }
