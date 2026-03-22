@@ -15,9 +15,5 @@ public class TmdbController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/random")
-    public TmdbMovieResult getRandomMovie(){
-        return movieService.getRandomMovie();
-    }
 
 }

@@ -6,7 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -18,18 +20,25 @@ public class QuestionGenerator {
         this.movieService = movieService;
     }
 
-    public GeneratedQuestion generate(){
-        ArrayList<String> titles= new ArrayList<String>();
+    public GeneratedQuestion generate() {
+        List<TmdbMovieResult> movies = movieService.TmdbGetRandomMoviePage();
 
-        TmdbMovieResult tmdbMovieResult =  movieService.getRandomMovie();
-        for(int i = 0; i < 3; i++){
-            titles.add(movieService.getRandomMovie().getTitle());
-        }
-        titles.add(tmdbMovieResult.getTitle());
-        Collections.shuffle(titles);
-        String redacted = tmdbMovieResult.getOverview().replace(tmdbMovieResult.getTitle(), "---------");
+        Collections.shuffle(movies);
 
-        return new GeneratedQuestion(new TriviaQuestion(UUID.randomUUID().toString(), redacted, titles), tmdbMovieResult.getTitle());
+        List<TmdbMovieResult> selected = movies.subList(0, 4);
+
+        TmdbMovieResult correct = selected.get(0);
+        List<String> titles = selected.stream()
+                .map(TmdbMovieResult::getTitle)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+
+        String redacted = correct.getOverview()
+                .replace(correct.getTitle(), "---------");
+
+        return new GeneratedQuestion(
+                new TriviaQuestion(UUID.randomUUID().toString(), redacted, titles),
+                correct.getTitle()
+        );
     }
-
 }

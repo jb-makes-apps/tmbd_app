@@ -1,22 +1,25 @@
 package com.movie.proj.trivia;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/trivia")
 public class TriviaController {
 
-    private final QuestionGenerator questionGenerator;
+    private final TriviaService triviaService;
 
-    public TriviaController(QuestionGenerator questionGenerator) { this.questionGenerator = questionGenerator; }
+    public TriviaController(TriviaService triviaService) { this.triviaService = triviaService; }
 
 
-    @GetMapping("/getQuestion")
-        public GeneratedQuestion generateQuestion() {
-        return questionGenerator.generate();
+    @GetMapping("/question")
+        public TriviaQuestion triviaQuestion() {
+        return triviaService.getQuestion();
+    }
+
+    @PostMapping("/answer")
+    public TriviaAnswerResult checkAnswer(@RequestBody TriviaAnswerRequest request) {
+        return triviaService.checkAnswer(request);
+
     }
 }

@@ -21,12 +21,9 @@ public class MovieService {
         return tmdbMovieClient.getMovieById(id);
     }
 
-    public TmdbMovieResult getRandomMovie() {
+    public List<TmdbMovieResult> TmdbGetRandomMoviePage() {
         int randomPage = new Random().nextInt(100) + 1;
-        List<TmdbMovieResult> movies = tmdbMovieClient
-                .getPopularMovies(randomPage)
-                .getResults();
+        return tmdbMovieClient.getPopularMovies(randomPage).getResults();
 
-        return movies.get(new Random().nextInt(movies.size()));
     }
-}
+ }
