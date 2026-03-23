@@ -17,11 +17,7 @@ public class MovieService {
         this.tmdbMovieClient = tmdbMovieClient;
     }
 
-    public TmdbMovieDetailsResponse getMovie(long id) {
-        return tmdbMovieClient.getMovieById(id);
-    }
-
-    public List<TmdbMovieResult> TmdbGetRandomMoviePage() {
+    public List<TmdbMovieResult> getRandomMoviePage() {
         int randomPage = new Random().nextInt(100) + 1;
         return tmdbMovieClient.getPopularMovies(randomPage).getResults();
 

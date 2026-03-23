@@ -21,7 +21,7 @@ public class QuestionGenerator {
     }
 
     public GeneratedQuestion generate() {
-        List<TmdbMovieResult> movies = movieService.TmdbGetRandomMoviePage();
+        List<TmdbMovieResult> movies = movieService.getRandomMoviePage();
 
         Collections.shuffle(movies);
 

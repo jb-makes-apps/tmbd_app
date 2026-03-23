@@ -1,11 +1,21 @@
 spring:
   application:
     name: tmdb_app
+  mvc:
+    webjars-path-pattern: /webjars/**
+  web:
+    resources:
+      add-mappings: true
 
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
     enabled: true
+    url: /v3/api-docs
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+
 server:
   port: 8080
 
