@@ -20,7 +20,6 @@ public class TmdbMovieClient {
         String url = UriComponentsBuilder
                 .fromUriString(props.getBaseUrl())
                 .path("/movie/{id}")
-                .queryParam("api_key", props.getApiKey())
                 .buildAndExpand(id)
                 .toUriString();
 
@@ -31,7 +30,6 @@ public class TmdbMovieClient {
         String url = UriComponentsBuilder
                 .fromUriString(props.getBaseUrl())
                 .path("/movie/popular")
-                .queryParam("api_key", props.getApiKey())
                 .queryParam("page", randomPage)
                 .buildAndExpand()
                 .toUriString();

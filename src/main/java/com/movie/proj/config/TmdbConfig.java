@@ -17,6 +17,12 @@ public class TmdbConfig {
         factory.setConnectTimeout(props.getConnectTimeoutMs());
         factory.setReadTimeout(props.getReadTimeoutMs());
 
-        return new RestTemplate(factory);
+        RestTemplate restTemplate = new RestTemplate(factory);
+        restTemplate.getInterceptors().add((request, body, execution) -> {
+            request.getHeaders().set("Authorization", "Bearer " + props.getApiKey());
+            return execution.execute(request, body);
+        });
+
+        return restTemplate;
     }
 }
